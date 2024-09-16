@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age and Gender Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .file-input-wrapper .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        #file-name {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        #preview-image {
+            max-width: 100%;
+            margin-top: 20px;
+            display: none;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age and Gender Detection</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="file-input-wrapper">
+                <button class="btn" type="button">Choose File</button>
+                <input type="file" name="file1" id="file-input" accept="image/*">
+            </div>
+            <div id="file-name"></div>
+            <button type="submit" class="btn submit-btn">Upload and Analyze</button>
+        </form>
+        <img id="preview-image" src="" alt="Preview">
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const fileName = document.getElementById('file-name');
+        const previewImage = document.getElementById('preview-image');
+        const form = document.getElementById('upload-form');
+        const result = document.getElementById('result');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                fileName.textContent = `Selected file: ${file.name}`;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                result.textContent = data.result;
+            } catch (error) {
+                console.error('Error:', error);
+                result.textContent = 'Error processing image';
+            }
+        });
+    </script>
+</body>
+</html>
