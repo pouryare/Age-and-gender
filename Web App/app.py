@@ -4,9 +4,12 @@ import os
 from model import image_pre, predict
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/static'
+UPLOAD_FOLDER = '/app/uploads'  # Changed to a writable location
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Ensure the upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -35,4 +38,4 @@ def upload_file():
         return jsonify({'error': 'File type not allowed'}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
