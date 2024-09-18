@@ -11,6 +11,9 @@ COPY . /app
 RUN mkdir -p /models
 COPY ./models/*.keras /models/
 
+# Create uploads directory and set permissions
+RUN mkdir -p /app/uploads && chmod 777 /app/uploads
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
