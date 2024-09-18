@@ -1,4 +1,4 @@
-# Age and Gender Prediction from X-Ray Images
+# Age and Gender Prediction from chest X-Ray Images
 
 This project implements a deep learning model to predict age and gender from chest X-ray images. It includes a data preprocessing pipeline, model training scripts, and a Flask web application for easy deployment and usage.
 
