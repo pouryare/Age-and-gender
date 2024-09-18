@@ -1,0 +1,14 @@
+*
+!Web App
+Web App/__pycache__
+Web App/*.pyc
+Web App/*.pyo
+Web App/*.pyd
+Web App/.git
+Web App/.env
+Web App/.venv
+Web App/env/
+Web App/venv/
+Web App/ENV/
+Web App/env.bak/
+Web App/venv.bak/
