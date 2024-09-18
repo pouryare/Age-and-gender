@@ -4,8 +4,8 @@ import os
 from model import image_pre, predict
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/app/uploads'  # Changed to a writable location
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+UPLOAD_FOLDER = '/app/uploads'
+ALLOWED_EXTENSIONS = set(['png'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure the upload folder exists
