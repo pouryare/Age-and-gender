@@ -6,7 +6,7 @@ This project implements a deep learning model to predict age and gender from che
 
 - `Age and gender.ipynb`: Main Jupyter notebook for data preprocessing, model training, and evaluation (to be run in Google Colab)
 - `Web App/app.py`: Flask web application for serving predictions
-- `Web App/model.py` : Contains functions for image preprocessing and prediction
+- `Web App/model.py`: Contains functions for image preprocessing and prediction
 
 ## Features
 
@@ -16,6 +16,7 @@ This project implements a deep learning model to predict age and gender from che
 - Model training with learning rate scheduling
 - Evaluation metrics and visualizations
 - Flask web application for easy deployment
+- Docker support for containerized deployment
 
 ## Prerequisites
 
@@ -30,16 +31,15 @@ This project implements a deep learning model to predict age and gender from che
 - Matplotlib
 - Seaborn
 - Scikit-learn
+- Docker (for containerized deployment)
 
 ## Installation
 
 1. Open the `Age and gender.ipynb` notebook in Google Colab.
-
 2. Ensure you have a Kaggle account and API token set up. If not, follow these steps:
    - Create a Kaggle account at https://www.kaggle.com
    - Go to your account settings and create a new API token
    - Download the `kaggle.json` file
-
 3. Upload the `kaggle.json` file to your Google Drive in the appropriate directory (as specified in the notebook).
 
 ## Usage
@@ -47,7 +47,6 @@ This project implements a deep learning model to predict age and gender from che
 ### Training the Models
 
 1. Open the `Age and gender.ipynb` notebook in Google Colab.
-
 2. Run all cells in the notebook sequentially. This will:
    - Mount your Google Drive
    - Set up the Kaggle API
@@ -59,29 +58,45 @@ This project implements a deep learning model to predict age and gender from che
 
 ### Running the Web Application
 
+#### Local Deployment
+
 The Flask web application is located in the `Web App` folder. To run it locally:
 
 1. Ensure you have Flask installed:
    ```
    pip install flask
    ```
-
 2. Navigate to the `Web App` folder:
    ```
    cd 'Web App'
    ```
-
 3. Run the Flask app:
    ```
    python app.py
    ```
-
 4. Open a web browser and go to `http://localhost:5000` to use the prediction interface.
+
+#### Docker Deployment
+
+To deploy the web application using Docker:
+
+1. Pull the Docker image:
+   ```
+   docker pull pouryare/flask-age-gender-app
+   ```
+
+2. Run the Docker container:
+   ```
+   docker run -p 5000:5000 pouryare/flask-age-gender-app
+   ```
+
+3. Open a web browser and go to `http://localhost:5000` to use the prediction interface.
+
+You can also build and run your own Docker image using the provided Dockerfile in the repository.
 
 ## Model Architecture
 
 The project uses a Convolutional Neural Network (CNN) with the following structure:
-
 - Multiple convolutional layers with batch normalization and max pooling
 - Global average pooling
 - Dense layers with dropout for regularization
@@ -90,7 +105,6 @@ The project uses a Convolutional Neural Network (CNN) with the following structu
 ## Performance
 
 The models are evaluated using the following metrics:
-
 - Gender Prediction: Accuracy, Precision, Recall, F1-score, ROC curve
 - Age Prediction: R2 score, Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE)
 
@@ -108,4 +122,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Dataset provided by Felipe Kitamura on Kaggle
 - Inspired by various age and gender prediction projects in the medical imaging domain
-
